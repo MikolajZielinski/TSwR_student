@@ -10,13 +10,13 @@ from utils.simulation import simulate
 
 Tp = 0.01
 start = 0
-end = 3
+end = 10
 
 """
 Switch to FeedbackLinearizationController as soon as you implement it
 """
-#controller = FeedbackLinearizationController(Tp)
-controller = DummyController(Tp)
+controller = FeedbackLinearizationController(Tp)
+# controller = DummyController(Tp)
 
 """
 Here you have some trajectory generators. You can use them to check your implementations.
