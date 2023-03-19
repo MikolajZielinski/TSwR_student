@@ -43,3 +43,11 @@ class ManiuplatorModel:
                       [self.beta * np.sin(q2) * q1_dot, 0]])
 
         return C
+
+    def set_m3_r3(self, m3, r3):
+        self.m3 = m3
+        self.r3 = r3
+
+        self.alfa = (self.m1 * ((self.l1 / 2) ** 2)) + self.I_1 + (self.m2 * ((self.l1 ** 2) + ((self.l2 / 2) ** 2))) + self.I_2 + (self.m3 * ((self.l1 ** 2) + (self.l2 ** 2))) + self.I_3
+        self.beta = (self.m2 * self.l1 * (self.l2 / 2)) + (self.m3 * self.l1 * self.l2)
+        self.gamma = (self.m2 * ((self.l2 / 2) ** 2)) + self.I_2 + (self.m3 * (self.l2 ** 2)) + self.I_3
