@@ -19,19 +19,19 @@ class ESO:
     def update(self, q, u):
         self.states.append(copy(self.state))
         ### TODO implement ESO update
-        print("-------------------------------------")
-        print(self.A)
-        print(self.states[-1])
-        print((self.A @ self.states[-1].T))
-        print(self.B @ [u])
-        print(self.L @ [q - self.x_hat])
+        # print("-------------------------------------")
+        # print(self.A)
+        # print(self.states[-1])
+        # print((self.A @ self.states[-1].T))
+        # print(self.B @ [u])
+        # print(self.L @ [q - self.x_hat])
 
 
         z_hat_dot = self.A @ self.state + self.B @ [u] + self.L @ [q - self.x_hat]
 
         z_hat = self.state + (z_hat_dot * self.Tp)
 
-        print(z_hat)
+        # print(z_hat)
 
         self.x_hat = z_hat[0]
         self.state = z_hat
