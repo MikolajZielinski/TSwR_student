@@ -11,7 +11,10 @@ class ESO:
         self.state = np.pad(np.array(state), (0, A.shape[0] - len(state)))
         self.Tp = Tp
         self.states = []
-        self.x_hat = 0
+        if len(state) < 3:
+            self.x_hat = state[0]
+        else:
+            self.x_hat = state[0:2]
 
     def set_B(self, B):
         self.B = B
@@ -20,20 +23,25 @@ class ESO:
         self.states.append(copy(self.state))
         ### TODO implement ESO update
         # print("-------------------------------------")
-        # print(self.A)
-        # print(self.states[-1])
-        # print((self.A @ self.states[-1].T))
-        # print(self.B @ [u])
+        # print(np.array([self.A @ np.array([self.state]).T]).flatten() + np.array([self.B @ [u]]).flatten())
+        # print(self.L)
+        # print([q - self.x_hat])
+        # print(np.array([self.L @ np.array([q - self.x_hat]).T]).flatten())
         # print(self.L @ [q - self.x_hat])
 
 
-        z_hat_dot = self.A @ self.state + self.B @ [u] + self.L @ [q - self.x_hat]
+        z_hat_dot = np.array([self.A @ np.array([self.state]).T]).flatten() + np.array([self.B @ [u]]).flatten() + np.array([self.L @ np.array([q - self.x_hat]).T]).flatten()
+
+        # print("z_hat_dot: ", z_hat_dot)
 
         z_hat = self.state + (z_hat_dot * self.Tp)
 
         # print(z_hat)
 
-        self.x_hat = z_hat[0]
+        if len(z_hat) < 4:
+            self.x_hat = z_hat[0]
+        else:
+            self.x_hat = z_hat[0:2]
         self.state = z_hat
 
     def get_state(self):
